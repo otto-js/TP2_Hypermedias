@@ -1,0 +1,167 @@
+<!DOCTYPE html> 
+
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8"/>
+        <style>
+            body { 
+                background-color: #333; margin: 0px;}
+
+            img {  
+                position : fixed;
+                margin : 10px 0px 0px 10px; 
+            }
+            label { 
+                font-size : 20px;
+                color :#fff;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+                margin-left : 10px; 
+                letter-spacing: 4px;
+                text-shadow: rgb(149, 176, 187) 0px 0px 10px;     
+            }
+            #label1 { 
+                font-weight : bold;}
+
+            form {  
+                margin : 10px; 
+                padding: 10px; 
+                z-index : 1;}
+
+            button { 
+                position : absolute;
+                margin : -83px 0 0 170px;
+                background-color : rgb(108, 133, 119);
+                border : none;
+                outline : none; 
+                border-radius : 15px;
+                height : 60px;
+                width : 120px;
+                font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                color : rgb(0, 0, 0);
+                font-size : 1.2em;
+                font-weight: bold;
+                letter-spacing: 3px;
+                box-shadow :rgb(52, 52, 41) 0 4px 15px 2px;
+                transition-duration : 1s;}
+
+            button:hover {
+                margin-top : -84px; 
+            }
+
+            .imgPetit {
+                height : 100px;
+                transition : height 1s; }
+
+            .imgMoyen {
+                height : 300px;
+                transition : height 1s; }
+
+            .imgGrand {
+                height : 90%;
+                transition : height 1s; }
+
+            #rectangle { 
+                position : fixed;  
+                height : 95px;  
+                background-color : #222;
+                margin : -100px 0 0 10px;
+                border-radius : 10px;
+                z-index : -1;
+                box-shadow : rgb(72, 78, 70) 0 0 20px 5px;}
+
+            .rectPetit { 
+                width : 140px;}
+            .rectMoyen {
+                width : 50%;}
+            .rectGrand { 
+                width : 98%;}
+
+        </style>
+    </head>
+
+    <body>
+
+
+        <form id="formulaire">
+            <input id="bouton1" type="radio" name="rdbtn" value="imgPetit" checked/>
+            <label id="label1" for="bouton1">petit</label><br>
+            <input id="bouton2" type="radio" name="rdbtn" value="imgMoyen"/>
+            <label for="bouton2">moyen</label><br>
+            <input id="bouton3" type="radio" name="rdbtn" value="imgGrand"/>
+            <label for="bouton3">grand</label><br>
+        </form>
+        <div id="rectangle" class="rectPetit"></div>
+
+        <img id="imgActuelle" class="imgPetit" src="IMAGES/image1.jpg"/>
+        <button id="boutonBordure">ajouter bordure</button>
+
+        <script>
+            var rectangle = document.getElementById("rectangle");
+            var image     = document.getElementById("imgActuelle");
+            var boutonBordure   = document.getElementById("boutonBordure");
+            var inputSize = document.getElementsByTagName("input");
+            var inputLabel = document.getElementsByTagName("label");
+            var sources   = ["IMAGES/image1.jpg", "IMAGES/image2.jpg", "IMAGES/image3.jpg", "IMAGES/image4.jpg"];
+            var index     = 0;
+            var bool      = false;
+            
+            for (var i = 0; i < inputSize.length; i++) {
+                inputSize[i].addEventListener("click", function() {
+                    rectangle.style.transition = "all 1s";
+                    if (inputSize[0].checked){
+                        image.className = inputSize[0].value;
+                        inputLabel[0].style.fontWeight = "bold";
+                        inputLabel[1].style.fontWeight = "normal"
+                        inputLabel[2].style.fontWeight = "normal";
+                        rectangle.className = "rectPetit";
+                    }
+                    else if (inputSize[1].checked){
+                        image.className = inputSize[1].value;
+                        inputLabel[0].style.fontWeight = "normal";
+                        inputLabel[1].style.fontWeight = "bold"
+                        inputLabel[2].style.fontWeight = "normal";
+                        rectangle.className = "rectMoyen";
+                    }
+                    else if (inputSize[2]){
+                        image.className = inputSize[2].value;
+                        inputLabel[0].style.fontWeight = "normal";
+                        inputLabel[1].style.fontWeight = "normal"
+                        inputLabel[2].style.fontWeight = "bold";
+                        rectangle.className = "rectGrand";
+                    }
+                });
+                }  
+
+            image.addEventListener("click", function(){ 
+                if (index < sources.length-1){
+                    index++;
+                    image.src = sources[index];
+                }
+                else {
+                    index = 0;
+                    image.src = sources[index];
+                }
+            });
+
+            boutonBordure.addEventListener("click", function() {
+
+                if (!bool){
+                image.style.outline = "solid #222 10px";
+                boutonBordure.style.border = "3px rgb(40, 49, 32) solid";
+                boutonBordure.style.borderRadius = "0px";
+                boutonBordure.style.backgroundColor = "rgb(208, 233, 119)";
+                boutonBordure.innerHTML = "enlever bordure";
+                bool = true;
+                } else {
+                image.style.outline = "";
+                boutonBordure.style.border = "none"
+                boutonBordure.style.borderRadius = "15px";
+                boutonBordure.style.backgroundColor = "rgb(108, 133, 119)";
+                boutonBordure.innerHTML = "ajouter bordure"
+                bool = false;
+                }
+            });
+        </script>
+    </body>
+</html>

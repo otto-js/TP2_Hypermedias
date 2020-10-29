@@ -1,0 +1,17 @@
+div {
+    border : solid 2px gray;
+    padding : 10px;}
+
+#message {
+    color : red;
+}  
+
+#facture {
+    display : none;
+}
+
+td {
+    border : solid blue 2px;
+    width : 100px;
+}
+

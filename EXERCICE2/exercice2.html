@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="CSS/exercice2.css">
+        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    <body>
+
+        <form  id="commander" name="commandeFormulaire">
+        <div>
+
+                <p>Facture d'achat ordinateur portable</p>
+                Nom complet
+                <input class="champs" type="text" placeholder="ex: Sylvain"></input>
+                <br>
+                Code postal
+                <input class="champs" type="text" placeholder="J0K1X0"></input>
+                <br>
+                Courriel
+                <input class="champs" type="email"></input>
+                <br>
+                Confirmez courriel
+                <input class="champs" type="email"></input>
+                <br>
+      
+            <p id="message"></p>
+        </div>
+
+        <div>
+            <p>Quelle marque voulez-vous?</p>
+            <select name="combo" id="selection" type="combobox">
+                <option value="799.90">Dell - $799.90</option>
+                <option value="2490.90">Apple - $2490.90</option>
+                <option value="1100.00">HP - $1100.00</option>
+                <option value="900.50">Asus - $900.50</option>
+            </select>
+            <p>Cochez les options que vous voulez ajouter</p>
+            <label><input class="boiteOption" id="ecran" type="checkbox" value="300"/>Écran - 300$</label>
+            <br>
+            <label><input class="boiteOption" id="garantie" type="checkbox" value="200"/>Garantie 2 ans - 200$</label>
+            <br>
+            <label><input class="boiteOption" id="imprimante" type="checkbox" value="100"/>Imprimante - 100$</label>
+            <br>
+            <label><input class="boiteOption" id="souris" type="checkbox" value="40"/>Souris sans fil - 40$</label>
+            <br><br>
+        </div>
+
+        <div>
+            <input type="submit" value="Commander"><p>ou</p><input id="recommencer" type="reset" value="recommencer"/>
+        </div>
+    </form>
+        <h1> FACTURE </h1>
+        <p id="messageFacture">En attente de l'envoi du formulaire</p>
+
+        <div id="facture">
+
+        </div>
+
+        <script src="SCRIPT/exercice2.js"></script>
+    </body>
+</html>
