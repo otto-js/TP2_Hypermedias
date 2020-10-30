@@ -12,21 +12,28 @@
         <form  id="commander" name="commandeFormulaire">
         <div>
 
-                <p>Facture d'achat ordinateur portable</p>
-                Nom complet
-                <input class="champs" type="text" placeholder="ex: Sylvain"></input>
-                <br>
-                Code postal
-                <input class="champs" type="text" placeholder="J0K1X0"></input>
-                <br>
-                Courriel
-                <input class="champs" type="email"></input>
-                <br>
-                Confirmez courriel
-                <input class="champs" type="email"></input>
-                <br>
-      
-            <p id="message"></p>
+            <h1> FACTURE </h1>
+            <table>
+            <tr>
+                <td>Nom complet</td>
+                <td><input class="champs" text="ñlkj" placeholder="ex: Sylvain"/></td>
+            </tr>
+            <tr>
+                <td>Code postal</td>
+                <td><input class="champs" type="text" placeholder="J0K1X0"/></td>
+            </tr>
+            <tr>
+                <td>Courriel</td>
+                <td><input class="champs" type="email"/></td>
+            </tr>
+            <tr>
+                <td>Confirmez courriel</td>
+                <td><input class="champs" type="email"/></td>
+            </tr>   
+            </table>
+            <div id="messageWrapper">
+                <p id="message"></p>
+            </div>
         </div>
 
         <div>
@@ -49,10 +56,10 @@
         </div>
 
         <div>
-            <input type="submit" value="Commander"><p>ou</p><input id="recommencer" type="reset" value="recommencer"/>
+            <input type="submit" value="Commander"><input id="recommencer" type="reset" value="recommencer"/>
         </div>
     </form>
-        <h1> FACTURE </h1>
+
         <p id="messageFacture">En attente de l'envoi du formulaire</p>
 
         <div id="facture">
