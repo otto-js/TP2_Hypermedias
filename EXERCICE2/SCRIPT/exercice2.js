@@ -39,6 +39,7 @@ function validerChamps(champs) {
     if(message){
         check = false;
     } 
+    document.getElementById("messageWrapper").style.marginLeft = "-110px";
     return check;
 }
 

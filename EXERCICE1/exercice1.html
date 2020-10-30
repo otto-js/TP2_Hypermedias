@@ -32,7 +32,6 @@
                 position : absolute;
                 margin : -83px 0 0 170px;
                 background-color : rgb(108, 133, 119);
-                border : none;
                 outline : none; 
                 border-radius : 15px;
                 height : 60px;
@@ -63,19 +62,19 @@
 
             #rectangle { 
                 position : fixed;  
-                height : 95px;  
+                height : 120px;  
                 background-color : #222;
-                margin : -100px 0 0 10px;
+                margin : -120px 0 0 0px;
                 border-radius : 10px;
                 z-index : -1;
-                box-shadow : rgb(72, 78, 70) 0 0 20px 5px;}
+            }
 
             .rectPetit { 
-                width : 140px;}
+                width : 150px;}
             .rectMoyen {
-                width : 50%;}
+                width : 48%;}
             .rectGrand { 
-                width : 98%;}
+                width : 100%;}
 
         </style>
     </head>
@@ -148,7 +147,7 @@
 
                 if (!bool){
                 image.style.outline = "solid #222 10px";
-                boutonBordure.style.border = "3px rgb(40, 49, 32) solid";
+                boutonBordure.style.border = "3px orange solid";
                 boutonBordure.style.borderRadius = "0px";
                 boutonBordure.style.backgroundColor = "rgb(208, 233, 119)";
                 boutonBordure.innerHTML = "enlever bordure";
