@@ -1,7 +1,7 @@
 body {
-    background-color : rgb(45, 50, 53);
+    background-image: linear-gradient( to left, rgb(255, 255, 255),rgb(240, 254, 240) );
     font-family : Arial, Helvetica, sans-serif;
-    color : rgb(238, 232, 230);
+    color : rgb(18, 18, 18);
 }
 
 p {
@@ -9,28 +9,36 @@ p {
     margin-top : 20px; 
 }
 
+form {
+    margin: 50px;
+}
+
 div {
     padding : 10px;
 }
 
 h1 {
-    color : rgb(67, 75, 24);
-    background-color : rgb(177, 125, 14);
+    color : rgb(255, 255, 255);
+    background-color : rgb(220, 232, 89);
     padding : 2px 15px; 
     margin : 5px 0 15px 5px;
+    box-shadow : 2px 2px 5px 0px rgb(211, 235, 216);
 }
 
 caption {
     padding : 5px; 
     font-weight: bold;
-    background-color :  rgb(169, 203, 207);
-    color : rgb(75, 42, 6);
+    background-color :  rgb(133, 162, 165);
+    color : rgb(254, 254, 254);
+    margin-bottom : 4px;
+    margin-left : -80px;
+    width : 300px;
 }
 
 td {
-    background-color : rgb(142, 79, 12);
+
     width : 100px;
-    padding : 10px;
+    padding : 5px;
 }
 
 input {
@@ -41,9 +49,13 @@ input {
     outline : none; 
 }
 
+.mesBoutons:hover {
+    margin-top : -2px;
+}
+
 .maFacturePlus {
     font-family: 'Courier New', Courier, monospace;
-    color : rgb(245, 245, 245);
+    color : rgb(27, 27, 28);
     text-align : center;
 }
 
@@ -57,15 +69,15 @@ input {
 
 #messageWrapper {
     position : absolute;
-    margin : -268px 0 0 -430px;
-    background-color : rgb(181, 218, 222);
-    padding : 5px;
+    margin : -275px 0 0 -560px;
+    background-color : rgb(191, 240, 245);
+    padding : 20px;
     border-radius : 0px 8px 8px 0px; 
-    width : 750px;
-    height : 256px;
+    width : 850px;
+    height : 248px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align: right;
-    box-shadow : 4px 4px 5px 0px rgb(36, 41, 43);
+    box-shadow : 2px 2px 5px 0px rgb(211, 235, 216);
     transition: margin 0.5s;
     z-index : -1;
 }
@@ -74,5 +86,14 @@ input {
     margin : 100px 10px 0 0;
     color : rgb(223, 0, 0);
     font-weight: bold;
+}
+
+#options {
+    margin-top : 30px;
+}
+
+#facture td {
+    width : auto;
+    background-color: white;
 }
 

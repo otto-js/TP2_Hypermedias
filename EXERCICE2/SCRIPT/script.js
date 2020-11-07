@@ -1,10 +1,10 @@
 var champs = document.getElementsByClassName("champs");
 
 //Vérification live remplissage des champs
-    for (var i = 0; i < champs.length; i++) {
-        champs[i].onkeyup = function() { validerChamps(champs);};
-        console.log(document.getElementById("message").innerHTML);
-    }
+for (var i = 0; i < champs.length; i++) {
+    champs[i].onkeyup = function() { validerChamps(champs);};
+    console.log(document.getElementById("message").innerHTML);
+}
    
 //changement couleur fond champs
 for (let i = 0; i < champs.length; i++){
@@ -17,9 +17,20 @@ document.getElementById("commander").addEventListener("submit", function(e) {
     soumettreFormulaire(champs, e);
 });
 
+document.getElementById("recommencer").addEventListener("click", function() {
+    resetMessageErreur();
+})
+
 
 //Affichage message boîte écran cochée/décochée
-document.getElementById("ecran").addEventListener("click", afficherMessageCheckBoxEcran);
+document.getElementById("ecran").addEventListener("click", function (){
+        if (this.checked){
+            alert("Bravo! Vous êtes le roi des bonnes décisions!");
+        }
+        else {
+            alert("Attention! Si cette case reste décochée, un bébé panda meurt");
+        }
+});
 
 function validerChamps(champs) {
     var messageErreur = document.getElementById("message");
@@ -39,7 +50,7 @@ function validerChamps(champs) {
     if(message){
         check = false;
     } 
-    document.getElementById("messageWrapper").style.marginLeft = "-110px";
+    document.getElementById("messageWrapper").style.marginLeft = "-210px";
     return check;
 }
 
@@ -61,23 +72,22 @@ function soumettreFormulaire(champs, e){
     } else {
         e.preventDefault(); 
         creerEtAfficherFacture(champs);
-        resetFormulaire(champs)
+        resetFormulaire(champs);
+        resetMessageErreur();
         alert("Votre commande est passée");
     }
 }
 
-function afficherMessageCheckBoxEcran() {
-    if (this.checked){
-        alert("Bravo! Vous êtes le roi des bonnes décisions!");
-    }
-    else {
-        alert("Attention! Si cette case reste décochée, un bébé panda meurt");
-    }
-}
 
-function resetFormulaire(champs) {
+
+function resetFormulaire(champs, message) {
     for (var i = 0; i < champs.length; i++)
     champs[i].value = "";
+}
+
+function resetMessageErreur() {
+    document.getElementById("message").innerHTML = "";
+    document.getElementById("messageWrapper").style.marginLeft = "-560px";
 }
 
 function creerEtAfficherFacture(champs) {
@@ -96,7 +106,7 @@ function creerEtAfficherFacture(champs) {
 
     var nouveauTableau = document.createElement("table");
     var nouveauTitreTableau = document.createElement("caption");
-    nouveauTitreTableau.innerHTML = "Facture ordinateur portable";
+    nouveauTitreTableau.innerHTML = "Ordinateur portable ";
 
     //création message entête tableau
     var enteteTableau = document.createElement("tr");
@@ -109,7 +119,7 @@ function creerEtAfficherFacture(champs) {
     nouveauTableau.appendChild(enteteTableau);
 
     //création ligne Produit
-    nouveauTableau.appendChild(creerLigne("PRODUIT", labelProduit, prixProduit))
+    nouveauTableau.appendChild(creerLigne("PRODUIT", labelProduit, prixProduit+"$"))
 
     var prixTotalOptions = 0;
     //création intitulé option
@@ -127,7 +137,7 @@ function creerEtAfficherFacture(champs) {
         //création champs options sélectionnées
         for(var i = 0; i < boiteOption.length; i++) {
             if (boiteOption[i].checked){
-                nouveauTableau.appendChild(creerLigne(i+1, options[i], boiteOption[i].value));
+                nouveauTableau.appendChild(creerLigne(i+1, options[i], boiteOption[i].value+"$"));
                 prixTotalOptions += parseFloat(boiteOption[i].value);
             }
         }
@@ -137,7 +147,7 @@ function creerEtAfficherFacture(champs) {
     var total = prixTotalOptions+prixProduit;
     if (total > 1000)
     facture.className = "maFacturePlus";
-    nouveauTableau.appendChild(creerLigne("TOTAL", total, ""));
+    nouveauTableau.appendChild(creerLigne("TOTAL", total+"$", ""));
     nouveauTableau.appendChild(nouveauTitreTableau);
     facture.appendChild(nouveauTableau);
 }
