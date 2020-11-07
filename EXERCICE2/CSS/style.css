@@ -36,7 +36,6 @@ caption {
 }
 
 td {
-
     width : 100px;
     padding : 5px;
 }
@@ -50,13 +49,14 @@ input {
 }
 
 .mesBoutons:hover {
-    margin-top : -2px;
+    margin-top : -5px;
 }
 
 .maFacturePlus {
     font-family: 'Courier New', Courier, monospace;
     color : rgb(27, 27, 28);
     text-align : center;
+    border : solid greenyellow 1px;
 }
 
 #selection {
@@ -92,7 +92,11 @@ input {
     margin-top : 30px;
 }
 
-#facture td {
+#factureWrapper {
+    display : none;
+}
+
+#factureTableau td {
     width : auto;
     background-color: white;
 }

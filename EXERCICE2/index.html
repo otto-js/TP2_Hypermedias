@@ -17,7 +17,7 @@
 
             <tr>
                 <td>Nom complet</td>
-                <td><input class="champs" placeholder="ex: Sylvain"/></td>
+                <td><input id="nom" class="champs" placeholder="ex: Sylvain"/></td>
             </tr>
             <tr>
                 <td>Code postal</td>
@@ -38,7 +38,6 @@
         </div>
 
         <div id="options">
-
             <p>CHOISISSEZ LA MARQUE</p>
             <select name="combo" id="selection" type="combobox">
                 <option value="799.90">Dell - $799.90</option>
@@ -47,13 +46,13 @@
                 <option value="900.50">Asus - $900.50</option>
             </select>
             <p>COCHEZ LES OPTIONS À AJOUTER</p>
-            <label><input class="boiteOption" id="ecran" type="checkbox" value="300"/>Écran - 300$</label>
+            <input class="boiteOption" id="ecran" type="checkbox" value="300"/><label for="ecran">Écran - 300$</label>
             <br>
-            <label><input class="boiteOption" id="garantie" type="checkbox" value="200"/>Garantie 2 ans - 200$</label>
+            <input class="boiteOption" id="garantie" type="checkbox" value="200"/><label for="garantie">Garantie 2 ans - 200$</label>
             <br>
-            <label><input class="boiteOption" id="imprimante" type="checkbox" value="100"/>Imprimante - 100$</label>
+            <input class="boiteOption" id="imprimante" type="checkbox" value="100"/><label for="imprimante">Imprimante - 100$</label>
             <br>
-            <label><input class="boiteOption" id="souris" type="checkbox" value="40"/>Souris sans fil - 40$</label>
+            <input class="boiteOption" id="souris" type="checkbox" value="40"/><label for="souris">Souris sans fil - 40$</label>
             <br><br>
         </div>
 
@@ -65,9 +64,22 @@
     <h1> FACTURE </h1>
         <p id="messageFacture">En attente de l'envoi du formulaire</p>
 
-        <div id="facture">
+        <div id="factureWrapper">
+            <table id="factureTableau">
+                <caption>VOTRE FACTURE</caption>
+                <tr>
+                    <td colspan="3" id="enTete"></td>
+                </tr>
+                <tr id="machine">
+                    <td>MACHINE</td><td>hoo</td><td>goo</td>
+                </tr>
+                <tr id="option">
+                    
+                </tr>
+              
+            </table>
         </div>
 
-        <script src="SCRIPT/script.js"></script>
+        <script src="SCRIPT/scrip.js"></script>
     </body>
 </html>

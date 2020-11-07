@@ -1,185 +1,120 @@
 var champs = document.getElementsByClassName("champs");
+var options = document.getElementsByClassName("boiteOption");
 
-//Vérification live remplissage des champs
 for (var i = 0; i < champs.length; i++) {
-    champs[i].onkeyup = function() { validerChamps(champs);};
-    console.log(document.getElementById("message").innerHTML);
-}
-   
-//changement couleur fond champs
-for (let i = 0; i < champs.length; i++){
-    champs[i].onfocus = function() {this.style.backgroundColor = "orange"; };
-    champs[i].onblur = function() {this.style.backgroundColor = "white"; };
+    champs[i].onfocus = function() { this.style.backgroundColor = "orange"; }
+    champs[i].onblur = function() { this.style.backgroundColor = "white"; }
+    champs[i].onkeyup = function() { validerChamps(champs); }
 }
 
-//Soummission du formulaire si champs remplis, bouton commander
-document.getElementById("commander").addEventListener("submit", function(e) {
-    soumettreFormulaire(champs, e);
-});
-
-document.getElementById("recommencer").addEventListener("click", function() {
-    resetMessageErreur();
-})
-
-
-//Affichage message boîte écran cochée/décochée
-document.getElementById("ecran").addEventListener("click", function (){
-        if (this.checked){
-            alert("Bravo! Vous êtes le roi des bonnes décisions!");
-        }
-        else {
-            alert("Attention! Si cette case reste décochée, un bébé panda meurt");
-        }
-});
+//affiche message checkbox écran
+document.getElementById("ecran").onclick = function(){
+    if (this.checked) 
+        alert("Vous êtes le roi des bonnes décisions");
+    else
+        alert("Un bébé panda meurt à chaque fois que vous décochez cette case");
+}
 
 function validerChamps(champs) {
-    var messageErreur = document.getElementById("message");
-    var message = "";
-    var check = true;
-    const lesMessages = ["Veuillez entrer un nom", 
-                        "<br>Veuillez entrer un code postal", 
-                        "<br>Veuillez entrer un courriel", 
-                        "<br>Veuillez confirmer le courriel"];
+    var isValide = true;
+    const LES_MESSAGES = [
+        "Veuillez entrer un nom",
+        "<br>Veuillez entrer un code postal",
+        "<br>Veuillez entrer un couriel",
+        "<br>Veuillez vérifier votre courriel",
+        "Les deux courriels doivent être identiques"
+    ]
+    var messageAffiche = "";
 
-    for (var i = 0; i<champs.length; i++)
-    if(!champs[i].value){
-        message += lesMessages[i];
+    for (var i = 0; i < champs.length; i++) {
+        if (!champs[i].value) {
+            messageAffiche += LES_MESSAGES[i];
+            isValide = false;
+        }
     }
-    message += comparerCourriels(champs[2], champs[3]);  
-    messageErreur.innerHTML = message;
-    if(message){
-        check = false;
-    } 
+    if (!messageAffiche){
+        if (champs[2].value !== champs[3].value) {
+            messageAffiche += LES_MESSAGES[4];
+            document.getElementById("message").innerHTML = messageAffiche;
+            isValide = false;
+        }
+    }
+    document.getElementById("message").innerHTML = messageAffiche;
+
     document.getElementById("messageWrapper").style.marginLeft = "-210px";
-    return check;
+    if (!messageAffiche)
+        document.getElementById("messageWrapper").style.marginLeft = "-560px";
+    return isValide;
 }
 
-function comparerCourriels(courriel1, courriel2) {
-    var message = "";
-    if(courriel1.value && courriel2.value)
-        if(courriel1.value !== courriel2.value)
-            message = "<br>Les courriels doivent être identiques";
-    return message;
-}
-
-function soumettreFormulaire(champs, e){
-    var bouton = document.getElementById("commander");
-    var check = validerChamps(champs);
-
-    if(!check){
-        e.preventDefault();
-        return false;
-    } else {
-        e.preventDefault(); 
-        creerEtAfficherFacture(champs);
-        resetFormulaire(champs);
-        resetMessageErreur();
-        alert("Votre commande est passée");
+document.getElementById("commander").addEventListener("submit", function(e){
+    e.preventDefault();
+    if (validerChamps(champs)){ 
+        afficherFacture();
+        alert("Votre commande a bien été envoyée");
+        resetFormulaire();
     }
-}
+});
 
-
-
-function resetFormulaire(champs, message) {
-    for (var i = 0; i < champs.length; i++)
-    champs[i].value = "";
-}
-
-function resetMessageErreur() {
-    document.getElementById("message").innerHTML = "";
+function resetFormulaire(){
+    for (var i = 0; i < champs.length; i++){
+        champs[i].value = "";
+    }
+    //uncheck boxes
+    for (var i = 0; i < options.length; i++){
+        options[i].checked = false; 
+    }
     document.getElementById("messageWrapper").style.marginLeft = "-560px";
 }
 
-function creerEtAfficherFacture(champs) {
-    var produitSelectionne = document.getElementById("selection").selectedIndex;
-    var prixProduit = parseFloat(document.getElementsByTagName("option")[produitSelectionne].value);
-    var labelProduit = document.getElementById("selection")[produitSelectionne].innerHTML.split(" ")[0];
-    var boiteOption = document.getElementsByClassName("boiteOption");
-    var messageFacture = document.getElementById("messageFacture");
-    var facture = document.getElementById("facture");
-    const options = [ "Écran", "Garantie", "Imprimante", "Souris"];
+function afficherFacture() {
+    var total = 0;
+    document.getElementById("messageFacture").innerHTML = "Voici votre facture"
 
-    
+    document.getElementById("enTete").innerHTML = "Merci de faire avec nous " + champs[0].value +
+                                              "<br>Votre facture sera envoyée à " + champs[1].value +
+                                              "<br>Et un courriel de confirmation à " + champs[2].value;
 
-    messageFacture.innerHTML = "Voici votre facture";
-    facture.style.display = "block";
+    var boxChecked = document.querySelectorAll("[type=checkbox]:checked");
 
-    var nouveauTableau = document.createElement("table");
-    var nouveauTitreTableau = document.createElement("caption");
-    nouveauTitreTableau.innerHTML = "Ordinateur portable ";
+    document.querySelectorAll("#machine>td")[1].innerHTML = document.getElementById("selection")[document.getElementById("selection").selectedIndex].innerHTML.split(" ")[0];
+    total += parseFloat(document.querySelectorAll("#machine>td")[2].innerHTML = document.getElementById("selection").value);
 
-    //création message entête tableau
-    var enteteTableau = document.createElement("tr");
-    var messageEntete = document.createElement("td");
-    messageEntete.colSpan = "3";
-    messageEntete.innerHTML = "Merci de faire affaire avec nous " + champs[0].value +
-                            "<br>Votre facture sera envoyée à " + champs[1].value + 
-                            "<br>et un courriel de confirmation à " + champs[2].value;
-    enteteTableau.appendChild(messageEntete);
-    nouveauTableau.appendChild(enteteTableau);
-
-    //création ligne Produit
-    nouveauTableau.appendChild(creerLigne("PRODUIT", labelProduit, prixProduit+"$"))
-
-    var prixTotalOptions = 0;
-    //création intitulé option
-    if (boiteOption[0].checked || 
-        boiteOption[1].checked || 
-        boiteOption[2].checked || 
-        boiteOption[3].checked) {
-    var ligneOption = document.createElement("tr");
-    var intituleLigneOption = document.createElement("td");
-    intituleLigneOption.colSpan = "3";
-    intituleLigneOption.innerHTML = "OPTIONS";
-    ligneOption.appendChild(intituleLigneOption);
-    nouveauTableau.appendChild(ligneOption);
-   
-        //création champs options sélectionnées
-        for(var i = 0; i < boiteOption.length; i++) {
-            if (boiteOption[i].checked){
-                nouveauTableau.appendChild(creerLigne(i+1, options[i], boiteOption[i].value+"$"));
-                prixTotalOptions += parseFloat(boiteOption[i].value);
-            }
+    //création ligne titre option
+    if(boxChecked.length > 0){
+        var ligneOption = document.createElement("td");
+        document.getElementById("factureTableau").appendChild(
+            document.createElement("tr")).appendChild(
+                ligneOption).colSpan = "3";
+        ligneOption.innerHTML = "OPTIONS";
         }
+
+    //création lignes options
+    for (var i = 0; i < boxChecked.length; i++){
+        var ligne = document.createElement("tr");
+        for (var j = 0; j < 3; j++) {
+            var col = document.createElement("td");
+            if (j == 0)
+                col.innerHTML = j+i+1;
+            if (j == 1)
+                col.innerHTML = boxChecked[i].parentNode.getElementsByTagName("label")[i].innerHTML.split(" ")[0];
+            if (j == 2)
+            total += col.innerHTML = parseFloat(boxChecked[i].value + "$");
+            ligne.appendChild(col);       
+        }
+    document.getElementById("factureTableau").appendChild(ligne);
     }
 
-    //création ligne Total
-    var total = prixTotalOptions+prixProduit;
+    //création ligne total
+    var ligneTotal = document.createElement("tr");
+    ligneTotal.appendChild(document.createElement("td")).innerHTML = "TOTAL";
+    ligneTotal.appendChild(document.createElement("td")).innerHTML = total + "$";
+    document.getElementById("factureTableau").appendChild(ligneTotal);
+
     if (total > 1000)
-    facture.className = "maFacturePlus";
-    nouveauTableau.appendChild(creerLigne("TOTAL", total+"$", ""));
-    nouveauTableau.appendChild(nouveauTitreTableau);
-    facture.appendChild(nouveauTableau);
+    document.getElementById("factureTableau").className = "maFacturePlus"
+
+    document.getElementById("factureWrapper").style.display = "inline";
 }
-
-
-function creerLigne(option, produit, prix) {
-    var options = [option, produit, prix];
-    var ligneSupplementaire = document.createElement("tr");
-    var colonneSupplementaire;
-    for (var i = 0; i < 3; i++){
-        colonneSupplementaire = document.createElement("td");
-        colonneSupplementaire.innerHTML = options[i];
-        ligneSupplementaire.appendChild(colonneSupplementaire);
-    }
-    return ligneSupplementaire;
-}
-
-
-
-
-
-
-  // version de fonction plus verbeuse gardée en commentaire pour référence dans le futur
-//changement couleur fond champs
-/*for (let i = 0; i < champs.length; i++) {
-    champs[i].addEventListener("focus", function(){
-        this.style.backgroundColor = "orange";
-    });
-    champs[i].addEventListener("blur", function(){
-        this.style.backgroundColor = "white"; 
-    })
-}*/
-
 
 
